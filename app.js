@@ -14,7 +14,12 @@ app.engine(
 app.set("view engine", "handlebars");
 app.set("views", "views");
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+);
+app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, "public")));
 
