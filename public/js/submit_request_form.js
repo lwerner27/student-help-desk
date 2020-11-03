@@ -20,7 +20,9 @@ $(() => {
         })
             .then((response) => response.json())
             .then((res) => {
-                console.log("Success:", res);
+                if (res.success) {
+                    window.location.replace("/success");
+                }
             })
             .catch((error) => {
                 console.error("Error:", error);
