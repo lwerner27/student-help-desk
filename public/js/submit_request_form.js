@@ -1,6 +1,6 @@
 $(() => {
-    console.log("Document is ready.")
 
+    // Handles the submit button click
     $("#submit-request-form").on("click", (event) => {
         event.preventDefault()
 
