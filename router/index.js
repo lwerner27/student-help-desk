@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
 const router = require("express").Router();
 
+const htmlToText = require("nodemailer-html-to-text").htmlToText;
+
 let transporter = nodemailer.createTransport({
     service: "Zoho",
     auth: {
@@ -8,6 +10,8 @@ let transporter = nodemailer.createTransport({
         pass: process.env.HELPDESK_EMAIL_PASSWORD,
     },
 });
+
+transporter.use("compile", htmlToText());
 
 router.get("/", (req, res) => {
     res.render("request-form", { pageTitle: "Help Request Form" });
@@ -22,7 +26,32 @@ router.post("/submit_form", (req, res) => {
         from: `${process.env.HELPDESK_EMAIL}`,
         to: `${process.env[req.body.school]}`,
         subject: `New Help Request from: ${req.body.fullName}`,
-        text: req.body.issueDescription,
+        html: `<div class="container">
+        <h2 class="ticket_title">New Help Request From: ${req.body.fullName}</h2>
+        <hr>
+        <div class="ticket">
+          <p><strong>Full Name:</strong> ${req.body.fullName}</p>
+          <p><strong>Parent's Email:</strong> ${req.body.email}</p>
+          <p><strong>Parent's Phone Number:</strong> ${req.body.phoneNumber}</p>
+          <p><strong>Student's Name:</strong> ${req.body.studentFullName}</p>
+          <p><strong>School:</strong> ${req.body.school}</p>
+          <p><strong>Issue Description:</strong> ${req.body.issueDescription}</p>
+        </div>
+      
+        <style>
+      
+          .container {
+            max-width: 1024px;
+            padding: 50px;
+            margin: auto;
+          }
+      
+          .ticket_title {
+            text-align: center
+          }
+        </style>
+      
+      </div>`,
     };
     transporter.sendMail(message, (err) => {
         if (err) {
