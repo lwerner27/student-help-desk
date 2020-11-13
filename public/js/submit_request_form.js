@@ -11,7 +11,7 @@ $(() => {
         reqInfo.school = $("#studentSchool").val().trim();
         reqInfo.issueDescription = $("#issueDescription").val().trim();
 
-        fetch("/submit_form", {
+        fetch("/request", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

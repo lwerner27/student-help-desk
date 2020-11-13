@@ -14,6 +14,10 @@ let transporter = nodemailer.createTransport({
 transporter.use("compile", htmlToText());
 
 router.get("/", (req, res) => {
+    res.render("tips", { pageTitle: "Tips" });
+});
+
+router.get("/request", (req, res) => {
     res.render("request-form", { pageTitle: "Help Request Form" });
 });
 
@@ -21,7 +25,7 @@ router.get("/success", (req, res) => {
     res.render("success", { pageTitle: "Thank You!" });
 });
 
-router.post("/submit_form", (req, res) => {
+router.post("/request", (req, res) => {
     const message = {
         from: `${process.env.HELPDESK_EMAIL}`,
         to: `${process.env[req.body.school]}`,
