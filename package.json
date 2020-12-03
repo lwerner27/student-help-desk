@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "compile-scss": "node-sass scss -o public/css"
+        "compile-scss": "node-sass scss -o public/css",
+        "start": "node app.js"
     },
     "author": "",
     "license": "ISC",
