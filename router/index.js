@@ -41,7 +41,7 @@ router.post("/request", (req, res) => {
         <hr>
         <div class="ticket">
           <p><strong>Full Name:</strong> ${req.body.fullName}</p>
-          <p><strong>Parent's Email:</strong> ${req.body.email}</p>
+          <p><strong>Parent's Email:</strong> ${req.body.emailAddress}</p>
           <p><strong>Parent's Phone Number:</strong> ${req.body.phoneNumber}</p>
           <p><strong>Student's Name:</strong> ${req.body.studentFullName}</p>
           <p><strong>School:</strong> ${req.body.school}</p>

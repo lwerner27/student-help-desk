@@ -4,30 +4,51 @@ $(() => {
         event.preventDefault();
 
         let reqInfo = {};
-        reqInfo.fullName = $("#fullName").val().trim();
-        reqInfo.email = $("#emailAddress").val().trim();
-        reqInfo.phoneNumber = $("#phoneNumber").val().trim();
-        reqInfo.studentFullName = $("#studentFullName").val().trim();
-        reqInfo.school = $("#studentSchool").val().trim();
-        reqInfo.issueDescription = $("#issueDescription").val().trim();
+        const fields = [
+            "fullName",
+            "emailAddress",
+            "phoneNumber",
+            "studentFullName",
+            "school",
+            "issueDescription",
+        ];
 
-        fetch("/request", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(reqInfo),
-        })
-            .then((response) => response.json())
-            .then((res) => {
-                if (!res.success) {
-                    window.location.replace("/sorry");
-                } else {
-                    window.location.replace("/success");
-                }
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+        fields.forEach((field) => {
+            let fieldData = $(`#${field}`).val().trim();
+            console.log(fieldData);
+
+            if (fieldData) {
+                reqInfo[field] = fieldData;
+            } else {
+                reqInfo = false;
+            }
+        });
+
+        if (reqInfo) {
+            submitRequestForm(reqInfo);
+        } else {
+            alert("Please make sure you filled in all the fields.");
+        }
     });
 });
+
+function submitRequestForm(reqInfo) {
+    fetch("/request", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reqInfo),
+    })
+        .then((response) => response.json())
+        .then((res) => {
+            if (!res.success) {
+                window.location.replace("/sorry");
+            } else {
+                window.location.replace("/success");
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+}
