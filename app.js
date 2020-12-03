@@ -28,11 +28,16 @@ app.use(express.static(path.join(__dirname, "public")));
 const router = require("./router");
 app.use("/", router);
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI, {
+const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-});
+    keepAlive: true,
+    keepAliveInitialDelay: 300000,
+    connectTimeoutMS: 300000,
+};
+
+// Connect to the Mongo DB
+mongoose.connect(process.env.MONGODB_URI, options);
 
 app.listen(PORT, () => {
     console.log("Server is listening on port " + PORT);
