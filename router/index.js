@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer");
+const { Ticket } = require("../models");
 const router = require("express").Router();
+const db = require("../models");
 
 const htmlToText = require("nodemailer-html-to-text").htmlToText;
 
@@ -23,6 +25,10 @@ router.get("/request", (req, res) => {
 
 router.get("/success", (req, res) => {
     res.render("success", { pageTitle: "Thank You!" });
+});
+
+router.get("/sorry", (req, res) => {
+    res.render("sorry", { pageTitle: "Sorry!" });
 });
 
 router.post("/request", (req, res) => {
@@ -57,12 +63,41 @@ router.post("/request", (req, res) => {
       
       </div>`,
     };
-    transporter.sendMail(message, (err) => {
+
+    // Saves ticket to database.
+    const newTicket = new db.Ticket({
+        fullName: req.body.fullName,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
+        studentFullName: req.body.studentFullName,
+        issueDescription: req.body.issueDescription,
+    });
+    newTicket.save(function (err) {
         if (err) {
+            // Reports the error if one exists.
+            console.log("Error saving to database.");
             console.log(err);
+            return res.status(500).send({
+                success: false,
+                msg: "Error saving to database.",
+            });
         } else {
-            console.log("Email has been sent.");
-            return res.status(200).send({ success: true, msg: "Success" });
+            console.log("Ticket saved to database.");
+            // Sends email
+            transporter.sendMail(message, (err) => {
+                if (err) {
+                    console.log("Error sending email.");
+                    console.log(err);
+                    return res
+                        .status(500)
+                        .send({ success: false, msg: "Error sending email." });
+                } else {
+                    console.log("Email has been sent.");
+                    return res
+                        .status(200)
+                        .send({ success: true, msg: "Success" });
+                }
+            });
         }
     });
 });

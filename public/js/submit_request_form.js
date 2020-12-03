@@ -20,7 +20,9 @@ $(() => {
         })
             .then((response) => response.json())
             .then((res) => {
-                if (res.success) {
+                if (!res.success) {
+                    window.location.replace("/sorry");
+                } else {
                     window.location.replace("/success");
                 }
             })
