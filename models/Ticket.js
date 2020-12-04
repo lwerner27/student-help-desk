@@ -6,6 +6,10 @@ const schema = new mongoose.Schema({
     studentFullName: "string",
     school: "string",
     issueDescription: "string",
+    status: {
+        type: String,
+        default: "open",
+    },
     dateOpenned: { type: Date, default: Date.now },
 });
 
