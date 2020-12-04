@@ -1,0 +1,21 @@
+{{#each tickets}}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header">{{school}}</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{fullName}}</h5>
+                <h6 class="card-title">{{studentFullName}}</h5>
+                    <p class="card-text text-truncate">{{issueDescription}}</p>
+                    {{#if status}}
+                    <button type="button" class="btn btn-success">CLOSED</button>
+                    {{else}}
+                    <button type="button" class="btn btn-danger">OPEN</button>
+                    {{/if}}
+                    <a href="/ticket/{{_id}}" class="btn btn-primary float-right">VIEW</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{{/each}}
