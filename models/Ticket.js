@@ -7,8 +7,8 @@ const schema = new mongoose.Schema({
     school: "string",
     issueDescription: "string",
     status: {
-        type: String,
-        default: "open",
+        type: Boolean,
+        default: false,
     },
     dateOpenned: { type: Date, default: Date.now },
 });
