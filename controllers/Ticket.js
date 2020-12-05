@@ -51,7 +51,7 @@ module.exports = {
         // Saves ticket to database.
         const newTicket = new Ticket({
             fullName: req.body.fullName,
-            email: req.body.email,
+            email: req.body.emailAddress,
             phoneNumber: req.body.phoneNumber,
             studentFullName: req.body.studentFullName,
             school: req.body.school,
@@ -96,6 +96,22 @@ module.exports = {
                 return res.render("tickets", {
                     pageTitle: "Tickets",
                     tickets: data,
+                });
+            })
+            .catch((error) => {
+                if (error) {
+                    console.log(error);
+                }
+            });
+    },
+    getTicketById: (req, res) => {
+        Ticket.findById(req.params.id)
+            .select("-__v")
+            .lean()
+            .then((data) => {
+                return res.render("ticket", {
+                    pageTitle: "Ticket",
+                    ticket: data,
                 });
             })
             .catch((error) => {

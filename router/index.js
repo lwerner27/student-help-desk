@@ -21,6 +21,10 @@ router.get("/tickets", (req, res) => {
     return Tickets.getTickets(req, res);
 });
 
+router.get("/ticket/:id", (req, res) => {
+    return Tickets.getTicketById(req, res);
+});
+
 router.post("/request", (req, res) => {
     return Tickets.submitTicket(req, res);
 });
