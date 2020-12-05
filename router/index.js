@@ -6,7 +6,10 @@ router.get("/", (req, res) => {
 });
 
 router.get("/request", (req, res) => {
-    res.render("request-form", { pageTitle: "Help Request Form" });
+    res.render("request-form", {
+        pageTitle: "Help Request Form",
+        requestPage: true,
+    });
 });
 
 router.get("/success", (req, res) => {
