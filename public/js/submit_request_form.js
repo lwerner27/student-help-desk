@@ -1,4 +1,6 @@
 $(() => {
+    $("#info-modal").modal();
+
     // Handles the submit button click
     $("#submit-request-form").on("click", (event) => {
         event.preventDefault();
