@@ -20,13 +20,15 @@ router.get("/sorry", (req, res) => {
     res.render("sorry", { pageTitle: "Sorry!" });
 });
 
-router.get("/tickets", (req, res) => {
-    return Tickets.getTickets(req, res);
-});
+// Route for displaying all the tickets
+// router.get("/tickets", (req, res) => {
+//     return Tickets.getTickets(req, res);
+// });
 
-router.get("/ticket/:id", (req, res) => {
-    return Tickets.getTicketById(req, res);
-});
+// Route for displaying individual ticket
+// router.get("/ticket/:id", (req, res) => {
+//     return Tickets.getTicketById(req, res);
+// });
 
 router.post("/request", (req, res) => {
     return Tickets.submitTicket(req, res);
