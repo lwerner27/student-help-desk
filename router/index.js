@@ -22,21 +22,25 @@ router.get("/sorry", (req, res) => {
 });
 
 // Route for displaying all the tickets
-// router.get("/tickets", (req, res) => {
-//     return Tickets.getTickets(req, res);
-// });
+router.get("/tickets", (req, res) => {
+    return Tickets.getTickets(req, res);
+});
 
 // Route for displaying individual ticket
-// router.get("/ticket/:id", (req, res) => {
-//     return Tickets.getTicketById(req, res);
-// });
+router.get("/ticket/:id", (req, res) => {
+    return Tickets.getTicketById(req, res);
+});
 
 router.post("/request", (req, res) => {
     return Tickets.submitTicket(req, res);
 });
 
 router.get("/login", (req, res) => {
-    return res.render("login", { pageTitle: "Login" });
+    return res.render("login", { pageTitle: "Login", loginPage: true });
+});
+
+router.post("/login", (req, res) => {
+    return Users.loginUser(req, res);
 });
 
 router.get("/register", (req, res) => {

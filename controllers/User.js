@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 module.exports = {
     checkForUsers: (req, res) => {
@@ -34,6 +35,28 @@ module.exports = {
                 console.log("New user has been added to the database.");
                 return res.status(200).send({ success: true, msg: "Success" });
             }
+        });
+    },
+    loginUser: (req, res) => {
+        User.findOne({ email: req.body.email }, function (err, user) {
+            if (err) console.log(err);
+
+            user.comparePassword(req.body.password, function (err, isMatch) {
+                if (err) console.log(err);
+
+                if (isMatch) {
+                    req.session.user = user;
+                    return res.status(200).send({
+                        success: true,
+                        msg: "You have succesfully logged in.",
+                    });
+                } else {
+                    return res.status(401).send({
+                        success: false,
+                        msg: "Email or password is incorrect.",
+                    });
+                }
+            });
         });
     },
 };

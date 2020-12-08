@@ -3,6 +3,8 @@ const express = require("express");
 const hbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const path = require("path");
 
 PORT = process.env.PORT || 8080;
@@ -25,9 +27,6 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const router = require("./router");
-app.use("/", router);
-
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -38,6 +37,21 @@ const options = {
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI, options);
+
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || "test_secret",
+        resave: false,
+        saveUninitialized: false,
+        store: new MongoStore({ mongooseConnection: mongoose.connection }),
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24,
+        },
+    })
+);
+
+const router = require("./router");
+app.use("/", router);
 
 app.listen(PORT, () => {
     console.log("Server is listening on port " + PORT);
