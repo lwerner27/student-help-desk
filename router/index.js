@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Tickets, Users } = require("../controllers");
+const User = require("../controllers/User");
 
 router.get("/", (req, res) => {
     res.render("tips", { pageTitle: "Tips" });
@@ -40,6 +41,10 @@ router.get("/login", (req, res) => {
 
 router.get("/register", (req, res) => {
     return Users.checkForUsers(req, res);
+});
+
+router.post("/register", (req, res) => {
+    return User.createFirstUser(req, res);
 });
 
 module.exports = router;
