@@ -34,4 +34,8 @@ router.post("/request", (req, res) => {
     return Tickets.submitTicket(req, res);
 });
 
+router.get("/login", (req, res) => {
+    return res.render("login", { pageTitle: "Login" });
+});
+
 module.exports = router;
