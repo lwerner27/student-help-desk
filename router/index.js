@@ -3,22 +3,29 @@ const { Tickets, Users } = require("../controllers");
 const User = require("../controllers/User");
 
 router.get("/", (req, res) => {
-    res.render("tips", { pageTitle: "Tips" });
+    res.render("tips", { pageTitle: "Tips", loggedIn: req.session.loggedIn });
 });
 
 router.get("/request", (req, res) => {
     res.render("request-form", {
         pageTitle: "Help Request Form",
         requestPage: true,
+        loggedIn: req.session.loggedIn,
     });
 });
 
 router.get("/success", (req, res) => {
-    res.render("success", { pageTitle: "Thank You!" });
+    res.render("success", {
+        pageTitle: "Thank You!",
+        loggedIn: req.session.loggedIn,
+    });
 });
 
 router.get("/sorry", (req, res) => {
-    res.render("sorry", { pageTitle: "Sorry!" });
+    res.render("sorry", {
+        pageTitle: "Sorry!",
+        loggedIn: req.session.loggedIn,
+    });
 });
 
 // Route for displaying all the tickets
