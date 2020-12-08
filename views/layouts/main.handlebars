@@ -24,10 +24,16 @@
                 <div class="navbar-nav">
                     <a class="nav-link {{#if requestPage}}active{{/if}}" href="/request">Request Help <span
                             class="sr-only">(current)</span></a>
+                    {{#if loggedIn}}
+                    <a class="nav-link float-end" href="/logout" role="button">Logout</a>
+                    {{else}}
+                    <a class="nav-link float-end {{#if loginPage}}active{{/if}}" href="/login" role="button">Login</a>
+                    {{/if}}
                 </div>
             </div>
         </div>
     </nav>
+
     <div class="container">
         <br>
         {{{body}}}
@@ -40,6 +46,11 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
     <script src="/js/submit_request_form.js"></script>
+    {{#if registration}}
+    <script src="/js/registration.js"></script>{{/if}}
+    {{#if loginPage}}
+    <script src="/js/login.js"></script>
+    {{/if}}
 </body>
 
 </html>

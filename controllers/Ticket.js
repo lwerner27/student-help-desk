@@ -95,6 +95,7 @@ module.exports = {
             .then((data) => {
                 return res.render("tickets", {
                     pageTitle: "Tickets",
+                    loggedIn: req.session.loggedIn,
                     tickets: data,
                 });
             })
@@ -111,6 +112,7 @@ module.exports = {
             .then((data) => {
                 return res.render("ticket", {
                     pageTitle: "Ticket",
+                    loggedIn: req.session.loggedIn,
                     ticket: data,
                 });
             })
