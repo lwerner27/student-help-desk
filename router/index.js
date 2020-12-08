@@ -51,6 +51,11 @@ router.post("/login", (req, res) => {
     return Users.loginUser(req, res);
 });
 
+router.get("/logout", (req, res) => {
+    req.session.destroy();
+    return res.redirect("/login");
+});
+
 router.get("/register", (req, res) => {
     return Users.checkForUsers(req, res);
 });

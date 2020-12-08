@@ -46,6 +46,7 @@ module.exports = {
 
                 if (isMatch) {
                     req.session.user = user;
+                    req.session.loggedIn = true;
                     return res.status(200).send({
                         success: true,
                         msg: "You have succesfully logged in.",
