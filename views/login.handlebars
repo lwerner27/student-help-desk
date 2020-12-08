@@ -10,6 +10,16 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password">
             </div>
+            {{#if registration}}
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword">
+            </div>
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name:</label>
+                <input type="text" class="form-control" id="fullName">
+            </div>
+            {{/if}}
             <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </form>
     </div>

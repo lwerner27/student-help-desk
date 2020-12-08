@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Tickets } = require("../controllers");
+const { Tickets, Users } = require("../controllers");
 
 router.get("/", (req, res) => {
     res.render("tips", { pageTitle: "Tips" });
@@ -36,6 +36,10 @@ router.post("/request", (req, res) => {
 
 router.get("/login", (req, res) => {
     return res.render("login", { pageTitle: "Login" });
+});
+
+router.get("/register", (req, res) => {
+    return Users.checkForUsers(req, res);
 });
 
 module.exports = router;
