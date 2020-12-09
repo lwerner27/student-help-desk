@@ -5,6 +5,8 @@ $(() => {
     $("#submit-request-form").on("click", (event) => {
         event.preventDefault();
 
+        $("#spinner-shade").removeClass("invisible");
+
         let reqInfo = {};
         const fields = [
             "fullName",
@@ -15,20 +17,19 @@ $(() => {
             "issueDescription",
         ];
 
-        fields.forEach((field) => {
-            let fieldData = $(`#${field}`).val().trim();
-            console.log(fieldData);
-
-            if (fieldData) {
-                reqInfo[field] = fieldData;
+        for (let i = 0; i < fields.length; i++) {
+            if ($(`#${fields[i]}`).val()) {
+                reqInfo[fields[i]] = $(`#${fields[i]}`).val().trim();
             } else {
                 reqInfo = false;
+                break;
             }
-        });
+        }
 
         if (reqInfo) {
             submitRequestForm(reqInfo);
         } else {
+            $("#spinner-shade").addClass("invisible");
             alert("Please make sure you filled in all the fields.");
         }
     });
