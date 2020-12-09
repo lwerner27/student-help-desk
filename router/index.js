@@ -82,9 +82,20 @@ router.get("/add/user", (req, res) => {
         req.session.user !== undefined &&
         req.session.user.role === "Tech"
     ) {
-        res.redirect("/tickets");
+        return res.redirect("/tickets");
     } else {
-        res.redirect("/login");
+        return res.redirect("/login");
+    }
+});
+
+router.post("/add/user", (req, res) => {
+    if (req.session.user !== undefined && req.session.user.role === "Admin") {
+        return User.createUser(req, res);
+    } else {
+        return res.status(401).send({
+            success: false,
+            msg: "You are unauthorized to use this route.",
+        });
     }
 });
 

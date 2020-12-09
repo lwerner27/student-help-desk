@@ -37,6 +37,30 @@ module.exports = {
             }
         });
     },
+
+    createUser: (req, res) => {
+        let newUser = new User({
+            fullName: req.body.fullName,
+            email: req.body.email.toLowerCase(),
+            password: req.body.password,
+            role: req.body.role,
+        });
+
+        newUser.save((err) => {
+            if (err) {
+                console.log("Error saving user to database.");
+                console.log(err);
+                return res.status(500).send({
+                    success: false,
+                    msg: "Error registering new user try again later.",
+                });
+            } else {
+                console.log("New user has been added to the database.");
+                return res.status(200).send({ success: true, msg: "Success" });
+            }
+        });
+    },
+
     loginUser: (req, res) => {
         User.findOne({ email: req.body.email }, function (err, user) {
             if (err) console.log(err);
