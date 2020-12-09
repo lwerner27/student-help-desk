@@ -10,27 +10,38 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#0B2A69">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
+
             <a class="navbar-brand" href="/">
                 <img src="/assets/hps_logo.png" width="30" height="30" class="d-inline-block align-top" alt=""
                     loading="lazy">
                 HPS Student Help Desk
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link {{#if requestPage}}active{{/if}}" href="/request">Request Help <span
-                            class="sr-only">(current)</span></a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {{#if requestPage}}active{{/if}}" href="/request">Request Help</a>
+                    </li>
                     {{#if loggedIn}}
-                    <a class="nav-link float-end" href="/logout" role="button">Logout</a>
-                    {{else}}
-                    <a class="nav-link float-end {{#if loginPage}}active{{/if}}" href="/login" role="button">Login</a>
+                    <li class="nav-item">
+                        <a class="nav-link {{#if ticketsPage}}active{{/if}}" href="/tickets">Tickets</a>
+                    </li>
                     {{/if}}
-                </div>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    {{#if loggedIn}}
+                    <a href="/logout" class="btn btn-light my-2 my-sm-0" type="submit">Logout</a>
+                    {{else}}
+                    <a href="/login" class="btn btn-light my-2 my-sm-0" type="submit">Login</a>
+                    {{/if}}
+                </form>
             </div>
         </div>
     </nav>

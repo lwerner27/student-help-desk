@@ -97,6 +97,7 @@ module.exports = {
                     pageTitle: "Tickets",
                     loggedIn: req.session.loggedIn,
                     tickets: data,
+                    ticketsPage: true,
                 });
             })
             .catch((error) => {
