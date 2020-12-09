@@ -71,4 +71,21 @@ router.post("/register", (req, res) => {
     return User.createFirstUser(req, res);
 });
 
+router.get("/add/user", (req, res) => {
+    if (req.session.user !== undefined && req.session.user.role === "Admin") {
+        return res.render("add-user", {
+            pageTitle: "Add User",
+            addUser: true,
+            loggedIn: req.session.loggedIn,
+        });
+    } else if (
+        req.session.user !== undefined &&
+        req.session.user.role === "Tech"
+    ) {
+        res.redirect("/tickets");
+    } else {
+        res.redirect("/login");
+    }
+});
+
 module.exports = router;
