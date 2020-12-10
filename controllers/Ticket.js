@@ -123,4 +123,25 @@ module.exports = {
                 }
             });
     },
+    updateStatus: (req, res) => {
+        console.log(req.body.id);
+        Ticket.findById(req.body.id).then((ticket) => {
+            ticket.status = !ticket.status;
+            ticket.save((err) => {
+                if (err) {
+                    console.log("Error updating ticket.");
+                    console.log(err);
+                    return res.status(500).send({
+                        success: false,
+                        msg: "There was an error changing the ticket status.",
+                    });
+                } else {
+                    return res.status(200).send({
+                        success: true,
+                        msg: "Ticktet status has been changed.",
+                    });
+                }
+            });
+        });
+    },
 };

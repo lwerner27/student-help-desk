@@ -6,9 +6,11 @@
             </div>
             <div class="col-sm-2">
                 {{#if ticket.status}}
-                <button class="btn btn-success float-md-right float-sm-none">CLOSED</button>
+                <button class="btn btn-success float-md-right float-sm-none" data-status="{{ticket.status}}"
+                    id="status-btn">CLOSED</button>
                 {{else}}
-                <button class="btn btn-danger float-md-right float-sm-none">OPEN</button>
+                <button class="btn btn-danger float-md-right float-sm-none" datat-status="{{ticket.status}}"
+                    id="status-btn">OPEN</button>
                 {{/if}}
             </div>
         </div>
@@ -33,12 +35,19 @@
             <div class="col">
                 <button class="btn btn-primary">COMMENT</button>
                 {{#if ticket.status}}
-                <button class="btn btn-danger float-right">RE-OPEN TICKET</button>
+                <button class="btn btn-danger float-right" id="open-close-btn" data-id="{{ticket._id}}">RE-OPEN
+                    TICKET</button>
                 {{else}}
-                <button class="btn btn-success float-right">CLOSE TICKET</button>
+                <button class="btn btn-success float-right" id="open-close-btn" data-id="{{ticket._id}}">CLOSE
+                    TICKET</button>
                 {{/if}}
             </div>
         </div>
     </div>
 </div>
-<br>
+
+<div class="spinner-shade invisible" id="spinner-shade">
+    <div class="spinner-border text-light custom-spinner" role="status">
+        <span class="visually-hidden"></span>
+    </div>
+</div>

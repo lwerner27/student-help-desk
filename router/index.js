@@ -46,6 +46,17 @@ router.get("/ticket/:id", (req, res) => {
     }
 });
 
+router.put("/ticket/status", (req, res) => {
+    if (req.session.user !== undefined) {
+        return Tickets.updateStatus(req, res);
+    } else {
+        res.status(401).send({
+            success: false,
+            msg: "You are not authorized to access this route.",
+        });
+    }
+});
+
 router.post("/request", (req, res) => {
     return Tickets.submitTicket(req, res);
 });
