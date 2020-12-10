@@ -90,7 +90,7 @@ module.exports = {
     // Function for getting information for all the tickets.
     getTickets: (req, res) => {
         Ticket.find({})
-            // .select("-emailAddress -phoneNumber -__v")
+            .sort({ dateOpenned: "descending" })
             .lean()
             .then((data) => {
                 return res.render("tickets", {
